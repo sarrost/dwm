@@ -27,7 +27,7 @@ man dwm
 
 ```bash
 git clone https://github.com/sarrost/dwm
-cd dwm
+cd dwm/src
 sudo make install
 ```
 
