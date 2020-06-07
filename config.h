@@ -27,16 +27,16 @@ static const char *fonts[]          = {
 	"JoyPixels:pixelsize=11:antialias=true:autohint=true" 
 };
 static char dmenufont[]             = "Hack:size=10";
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#770000";
-static char selbgcolor[]            = "#00abab";
+static char normbgcolor[]           = "#00e897";
+static char normbordercolor[]       = "#00e897";
+static char normfgcolor[]           = "#00e897";
+static char selfgcolor[]            = "#00e897";
+static char selbordercolor[]        = "#00e897";
+static char selbgcolor[]            = "#00e897";
 static char *colors[][3] = {
-       /*               fg           bg           border   */
-       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+	/*               fg           bg           border   */
+	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
 typedef struct {
