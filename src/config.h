@@ -2,29 +2,30 @@
 
 /* Appearance */
 /* border pixel of windows */
-static const unsigned int borderpx  = 0;        
+static const unsigned int borderpx  = 0;
 /* snap pixel */
-static const unsigned int snap      = 32;       
+static const unsigned int snap      = 32;
 /* horiz inner gap between windows */
-static const unsigned int gappih    = 10;       
+static const unsigned int gappih    = 10;
 /* vert inner gap between windows */
-static const unsigned int gappiv    = 10;       
+static const unsigned int gappiv    = 10;
 /* horiz outer gap between windows and screen edge */
-static const unsigned int gappoh    = 20;       
+static const unsigned int gappoh    = 20;
 /* vert outer gap between windows and screen edge */
-static const unsigned int gappov    = 20;       
+static const unsigned int gappov    = 20;
 /* 1 means swallow floating windows by default */
-static const int swallowfloating    = 0;        
+static const int swallowfloating    = 0;
 /* 1 means no outer gap when there is only one window */
-static const int smartgaps          = 0;        
+static const int smartgaps          = 0;
 /* 0 means no bar */
-static const int showbar            = 1;        
+static const int showbar            = 1;
 /* 0 means bottom bar */
-static const int topbar             = 1;        
-static const char *fonts[]          = { 
-	"Hack:size=11", 
-	"Noto Sans CJK JP:size=11", 
-	"JoyPixels:pixelsize=11:antialias=true:autohint=true" 
+static const int topbar             = 1;
+static const char *fonts[]          = {
+	"Hack:size=12",
+	"Noto Sans CJK JP:size=12",
+	"FontAwesome:pixelsize=12:antialias=true:autohint=true",
+	"JoyPixels:pixelsize=12:antialias=true:autohint=true"
 };
 static char dmenufont[]             = "Hack:size=10";
 static char normbgcolor[]           = "#00e897";
@@ -66,14 +67,14 @@ static const Rule rules[] = {
 
 /* layout(s) */
 /* factor of master area size [0.05..0.95] */
-static const float mfact     = 0.55; 
+static const float mfact     = 0.55;
 /* number of clients in master area */
-static const int nmaster     = 1;    
+static const int nmaster     = 1;
 /* 1 means respect size hints in tiled resizals */
-static const int resizehints = 1;    
+static const int resizehints = 1;
 
 /* nrowgrid layout: force two clients to always split vertically */
-#define FORCE_VSPLIT 1  
+#define FORCE_VSPLIT 1
 
 #include "vanitygaps.c"
 
@@ -144,97 +145,102 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } },
 
 	/* Launch help menus and task lists */
-	{ MODKEY|AltMask,							XK_0, spawn, 
+	{ MODKEY|AltMask,							XK_0, spawn,
 		SHCMD("st -e nvim $SYSTEM_HELP_FILE") },
-	{ MODKEY|AltMask|ShiftMask,		XK_0, spawn, 
+	{ MODKEY|AltMask|ShiftMask,		XK_0, spawn,
 		SHCMD("st -e nvim $RICE_TASK_FILE") },
-	{ MODKEY|AltMask,							XK_1, spawn, 
+	{ MODKEY|AltMask,							XK_1, spawn,
 		SHCMD("st -e nvim $NVIM_HELP_FILE") },
-	{ MODKEY|AltMask,							XK_2, spawn, 
+	{ MODKEY|AltMask,							XK_2, spawn,
 		SHCMD("st -e nvim $ZSH_HELP_FILE") },
-	{ MODKEY|AltMask,							XK_3, spawn, 
+	{ MODKEY|AltMask,							XK_3, spawn,
 		SHCMD("st -e nvim $VIFM_HELP_FILE") },
-	{ MODKEY|AltMask,							XK_4, spawn, 
+	{ MODKEY|AltMask,							XK_4, spawn,
 		SHCMD("st -e nvim $BRAVE_HELP_FILE") },
-	{ MODKEY|AltMask,							XK_5, spawn, 
+	{ MODKEY|AltMask,							XK_5, spawn,
 		SHCMD("st -e nvim $ZATHURA_HELP_FILE") },
 
-	{ MODKEY,							XK_minus,	spawn,		
-		SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,		XK_minus,	spawn,		
-		SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,							XK_equal,	spawn,		
-		SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,		XK_equal,	spawn,		
-		SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,							XK_minus,	spawn,		SHCMD("volumewrap dec") },
+	{ MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("volumewrap min") },
+	{ MODKEY,							XK_equal,	spawn,		SHCMD("volumewrap inc") },
+	{ MODKEY|ShiftMask,		XK_equal,	spawn,		SHCMD("volumewrap max") },
 	/* Choose to lock screen, logour, shutdown, reboot, etc. */
-	{ MODKEY,							XK_BackSpace,	spawn,		
+	{ MODKEY,							XK_BackSpace,	spawn,
 		SHCMD("sysact") },
-	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,		
+	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,
 		SHCMD("sysact") },
 	{ MODKEY,			XK_Tab,		view,		{0} },
 	/* Close/kill window */
-	{ MODKEY,							XK_q,	killclient,	{0} },
-	{ MODKEY|ShiftMask,		XK_q,	spawn,			SHCMD("sysact") },
+	{ MODKEY,																	XK_q,					killclient,	{0} },
+	/* Reload dwm */
+	{ MODKEY|AltMask|ShiftMask,								XK_q,	spawn,	SHCMD("pkill -1 dwm") },
+	/* Logout */
+	{ MODKEY|ControlMask|ShiftMask,						XK_q,	spawn,	SHCMD("pkill dwm") },
+	/* Shutdown */
+	{ MODKEY|AltMask|ControlMask,							XK_q,	spawn,	SHCMD("shutdown now") },
+	/* Reboot */
+	{ MODKEY|AltMask|ControlMask|ShiftMask,		XK_q,	spawn,	SHCMD("reboot") },
 	/* Launch browser */
-	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
+	{ MODKEY,							XK_w,	spawn,	SHCMD("$BROWSER") },
 	/* Launch nmtui */
-	{ MODKEY|ShiftMask,		XK_w,		spawn,		
-		SHCMD("st -e sudo nmtui") },
+	{ MODKEY|ShiftMask,		XK_w,	spawn,	SHCMD("st -e sudo nmtui") },
 	/* Launch neomutt */
-	{ MODKEY,			XK_e,		spawn,		
+	{ MODKEY,			XK_e,		spawn,
 		SHCMD("st -e neomutt ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") },
 	/* Launch abook */
-	{ MODKEY|ShiftMask,		XK_e,		spawn,		
-		SHCMD("st -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
-	/* Launch htop */
-	{ MODKEY|ShiftMask,		XK_r,		spawn,		
-		SHCMD("st -e htop") },
+	/* { MODKEY|ShiftMask,		XK_e,		spawn, */
+	/* 	SHCMD("st -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") }, */
+	/* Launch emoji picker */
+	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("emoji-rofi") },
+	/* Launch resource manager (bashtop) */
+	{ MODKEY,							XK_r,		spawn,		SHCMD("st -e bashtop") },
+	/* Launch resource manager (htop) */
+	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e htop") },
 	/* Tiling mode */
-	{ MODKEY,							XK_t,	setlayout,	
-		{.v = &layouts[0]} },
+	{ MODKEY,							XK_t,	setlayout,	{.v = &layouts[0]} },
 	/* Bottom stack mode */
-	{ MODKEY|ShiftMask,		XK_t,	setlayout,	
-		{.v = &layouts[1]} }, 
+	{ MODKEY|ShiftMask,		XK_t,	setlayout,	{.v = &layouts[1]} },
+	/* Launch torrent client */
+	{ MODKEY|AltMask,			XK_t,	spawn,			SHCMD("st -e transmission-remote-cli") },
 	/* Fibonacci spiral mode */
-	{ MODKEY,			XK_y,		setlayout,	{.v = &layouts[2]} }, 
+	{ MODKEY,			XK_y,		setlayout,	{.v = &layouts[2]} },
 	/* Dwindle mode */
 	{ MODKEY|ShiftMask,		XK_y,		setlayout,	{.v = &layouts[3]} },
 	/* Deck mode */
-	{ MODKEY,			XK_u,		setlayout,	{.v = &layouts[4]} }, 
+	{ MODKEY,			XK_u,		setlayout,	{.v = &layouts[4]} },
 	/* Monocle mode */
 	{ MODKEY|ShiftMask,		XK_u,		setlayout,	{.v = &layouts[5]} },
 	/* Center master window */
 	{ MODKEY,			XK_i,		setlayout,	{.v = &layouts[6]} },
 	/* Center and float master window */
-	{ MODKEY|ShiftMask,		XK_i,		setlayout,	{.v = &layouts[7]} }, 
+	{ MODKEY|ShiftMask,		XK_i,		setlayout,	{.v = &layouts[7]} },
 	/* Increase/decrease the number of master windows */
 	{ MODKEY,			XK_o,		incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_o,		incnmaster,     {.i = -1 } },
 	/* Toggle pause */
-	{ MODKEY,											XK_p,	spawn,		
+	{ MODKEY,											XK_p,	spawn,
 		SHCMD("mpc toggle") },
 	/* Force pause mpd and all mpv videos */
-	{ MODKEY|ShiftMask,						XK_p,	spawn,	
+	{ MODKEY|ShiftMask,						XK_p,	spawn,
 		SHCMD("mpc pause ; pauseallmpv") },
 	/* Take screenshot */
-	{ MODKEY|AltMask,							XK_p,	spawn,	
+	{ MODKEY|AltMask,							XK_p,	spawn,
 		SHCMD("screenshot") },
-	/* Take screenshot of selected region */
-	{ MODKEY|AltMask|ShiftMask,		XK_p,	spawn,	
-		SHCMD("screenshot --select") },
 	/* Take screenshot of focused window */
-	{ MODKEY|AltMask|ControlMask,	XK_p,	spawn,	
+	{ MODKEY|AltMask|ShiftMask,		XK_p,	spawn,
 		SHCMD("screenshot --focused") },
-	{ MODKEY,							XK_bracketleft,		spawn,		
+	/* Take screenshot of selected region */
+	{ MODKEY|AltMask|ControlMask,	XK_p,	spawn,
+		SHCMD("sleep 0.2; screenshot --select") },
+	{ MODKEY,							XK_bracketleft,		spawn,
 		SHCMD("mpc seek -10") },
-	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		
+	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,
 		SHCMD("mpc seek -60") },
-	{ MODKEY,							XK_bracketright,	spawn,		
+	{ MODKEY,							XK_bracketright,	spawn,
 		SHCMD("mpc seek +10") },
-	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		
+	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,
 		SHCMD("mpc seek +60") },
-	{ MODKEY,							XK_backslash,			view,		
+	{ MODKEY,							XK_backslash,			view,
 		{0} },
 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
 
@@ -247,9 +253,10 @@ static Key keys[] = {
 	/* Prep anki fields */
 	{ MODKEY|AltMask|ShiftMask,		XK_a,	spawn,				SHCMD("st -e nvim ~/doc/anki/blank.html") },
 	/* Window toggle sticky */
-	{ MODKEY,			XK_s,		togglesticky,	{0} },
+	{ MODKEY,							XK_s,		togglesticky,	{0} },
+	{ MODKEY|AltMask,			XK_s,		spawn,				SHCMD("screenkeytoggle") },
 	{ MODKEY,		XK_d,		spawn,	SHCMD("rofi -show run") },
-    
+
 	/* Fullscreen mode */
 	{ MODKEY,			XK_f,		togglefullscr,	{0} },
 	/* Floating mode */
@@ -286,8 +293,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+6 dwmblocks") },
 	/* Launch ncmpcpp */
 	{ MODKEY,			XK_m,		spawn,		SHCMD("st -e ncmpcpp") },
-	/* Launch pamixer */	
-	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
+	/* Mute audio toggle */
+	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("volumewrap toggle") },
 	/* Previous track */
 	{ MODKEY,			XK_comma,	spawn,		SHCMD("mpc prev") },
 	/* Restart track */
