@@ -189,7 +189,7 @@ drw_clr_create(Drw *drw, Clr *dest, const char *clrname, unsigned int alpha)
  
  	/* clr = ecalloc(1, sizeof(Clr)); */
 	if (!drw || !dest || !clrname)
-		return;
+		return NULL;
 
 	/* if (!XftColorAllocName(drw->dpy, DefaultVisual(drw->dpy, drw->screen), */
 	                       /* DefaultColormap(drw->dpy, drw->screen), */

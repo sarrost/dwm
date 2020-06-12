@@ -33,7 +33,7 @@ static char normbordercolor[]       = "#00e897";
 static char normfgcolor[]           = "#00e897";
 static char selfgcolor[]            = "#00e897";
 static unsigned int baralpha        = 0xb3;
-static unsigned int borderalpha     = OPAQUE;
+/* static unsigned int borderalpha     = OPAQUE; */
 static char selbordercolor[]        = "#00e897";
 static char selbgcolor[]            = "#00e897";
 static char *colors[][3] = {
@@ -393,7 +393,6 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
 	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
 	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },

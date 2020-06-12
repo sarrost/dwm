@@ -41,16 +41,17 @@ This build of dwm does not block color emoji in the status/info bar, so you must
 
 ## Patches and features
 
-- alpha patch: Transparent bar bitches (took a whole day to get working!)
+- **notitile**: Removed window title in bar
+- **alpha patch**: Transparent bar bitches (took a whole day to get working!)
 - Reads xresources colors/variables (i.e. works with `pywal`, etc.)
-- scratchpad: Accessible with mod+'
-- New layouts: bstack, fibonacci, deck, centered master and more. All bound to keys `super+(shift+)t/y/u/i`
+- **scratchpad**: Accessible with mod+'
+- **New layouts**: bstack, fibonacci, deck, centered master and more. All bound to keys `super+(shift+)t/y/u/i`
 - True fullscreen (`super+f`) and prevents focus shifting
 - Windows can be made sticky (`super+s`)
-- stacker: Move windows up the stack manually (`super-K/J`)
-- shiftview: Cycle through tags (`super+g/;`)
-- vanitygaps: Gaps allowed across all layouts
-- swallow patch: if a program run from a terminal would make it inoperable, it temporarily takes its place to save space
+- **stacker**: Move windows up the stack manually (`super-K/J`)
+- **shiftview**: Cycle through tags (`super+g/;`)
+- **vanitygaps**: Gaps allowed across all layouts
+- **swallow patch**: if a program run from a terminal would make it inoperable, it temporarily takes its place to save space
 
 ## Contact
 
