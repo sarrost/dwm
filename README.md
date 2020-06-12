@@ -1,7 +1,5 @@
 # My personal build of dwm
 
-My personal build of dwm.
-
 <p align="center">
   <img src="preview.gif"/>
 </p>
