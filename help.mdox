@@ -1,0 +1,159 @@
+[[#legend]] [[#help]] [[#general]] [[#layouts]] [[#programs]] [[#system]] [[#audio/music]] [[#windows/tags/workspaces]] [[#recording]]
+--------------------------------------------------------------------------------------------------------------
+= legend =
+--------------------------------------------------------------------------------------------------------------
+
+	* `Mod`											Mod4 (Usually windows) key
+	* `LC`											Left mouse click
+	* `RC`											Right mouse click
+	* `MC`											Middle mouse click
+	* `MS`											Mouse scroll
+
+--------------------------------------------------------------------------------------------------------------
+= help =
+--------------------------------------------------------------------------------------------------------------
+
+	* `Mod-alt-0`								Launch system help
+	* `Mod-alt-1`								Launch vifm help
+
+--------------------------------------------------------------------------------------------------------------
+= general =
+--------------------------------------------------------------------------------------------------------------
+
+	* `Mod-enter`								Launch terminal (`$TERMINAL`).
+	* `Mod-q`										Close/kill window
+	* `Mod-d`										Lauch app launcher (rofi)
+	* `Mod-ctrl-shift-q`				Reload dwm
+	* `Mod-z/Z`									Increase/decrease gaps May also hold `M-MS`
+	* `Mod-a`										Toggle gaps
+	* `Mod-shift-a`							Gaps to default values May also hold `M-MC`
+	* `Mod-b`										Toggle statusbar 
+	* `Mod-alt-shift-q`					Logout
+	* `Mod-alt-ctrl-q`					shutdown
+	* `Mod-alt-ctrl-shift-q`		reboot
+
+--------------------------------------------------------------------------------------------------------------
+= layouts =
+--------------------------------------------------------------------------------------------------------------
+
+	* `Mod-t`										Tiling mode (active by default)
+	* `Mod-shift-t`							Bottom stack mode (just like tiling, but master is on top)
+	* `Mod-f`										Fullscreen mode
+	* `Mod-shift-f`							Floating (AKA normie) mode
+	* `Mod-y`										Fibbonacci spiral mode
+	* `Mod-shift-y`							Dwindle mode (similar to Fibonacci)
+	* `Mod-u`										Master on left, other windows in monocle mode
+	* `Mod-shift-u`							Monocle mode (all windows fullscreen and cycle through)
+	* `Mod-i`										Center master window
+	* `Mod-shift-i`							Center and float master window
+	* `Mod-o/O`									Increase/decrease the number of master windows
+
+--------------------------------------------------------------------------------------------------------------
+= programs =
+--------------------------------------------------------------------------------------------------------------
+
+	* `Mod-'`										Toggle dropdown terminal (`$TERMINAL`)
+	* `Mod-shift-enter`					Launch file browser (vifm)
+	* `Mod-w`										Launch web browser (`$BROWSER`)
+	* `M-alt-x`									Launch audio/volume system control (pulsemixer) 
+	* `M-shitf-w`								Launch wifi manager (nmtui)
+	* `M-shift-'`								Toggle dropdown calculator 
+	* `M-e`											Launch email client (neomutt)
+	* `Mod-m`										Launch music player (ncmpcpp)
+	* `Mod-alt-t`								Launch torrent client (transmission-remote-cli)
+	* `M-n`											Launch notes (vimwiki)
+	* `Mod-alt-e`								Launch emoji picker (script)
+	* `M-shitf-n`								Launch RSS feed reader (newsboat )
+	* `Mod-r`										Launch resource manager (bashtop)
+	* `Mod-shift-r`							Launch resource manager (htop)
+	* `Mod-alt-s`								Toggle screenkey
+
+--------------------------------------------------------------------------------------------------------------
+= system = 
+--------------------------------------------------------------------------------------------------------------
+
+	* `Mod-ctrl-=/-`				Increase/decrease brightness level
+	* `Mod-ctrl-shift-=/-`	Set max/min brightness level
+	* `Mod-alt-p`						Take screenshot
+	* `Mod-alt-shift-p`			Take screenshot of focused window
+	* `Mod-alt-ctrl-p`			Take screenshot of selected region 
+	* `M-backspace`
+			- Choose to lock screen, logout, shutdown, reboot, etc.
+	* `M-F3`
+			- Select screen/display to use
+	* `M-F4`
+			- pulsemixer (audio control)
+	* `M-F6`
+			- Transmission torrent client (not installed by default)
+	* `M-F7`
+			- Toggle on/off transmission client via dmenu
+	* `M-F8`
+			- Check mail (neomutt)
+	* `M-F9`
+			- Mount a USB drive/hard drive or Android
+	* `M-F10`
+			- Unmount a non-essential drive or Android
+	* `M-F11`
+			- View webcam
+	* `M-F12`
+			- Update dwm’s colorscheme if you have changed Xresources
+
+--------------------------------------------------------------------------------------------------------------
+= audio/music =
+--------------------------------------------------------------------------------------------------------------
+
+	* `Mod-m`							Launch ncmpcpp, the music player
+	* `Mod-./,`						Next/previous track
+	* `Mod-shift-.`				Restart track
+	* `Mod-shift-,`				Toggle playlist looping
+	* `Mod-p`							Toggle pause
+	* `Mod-shift-p`				Force pause music player daemon and all mpv videos
+	* `Mod-shift-m`				Mute all audio
+	* `Mod-=/-`						Increase/decrease volume
+	* `Mod-shift-=/-`			Set max/min volume
+	* `Mod-alt-=/-`				Increase/decrease music volume
+	* `Mod-alt-shift-=/-`	Set max/min music volume
+	* `Mod-]/[`						Forward/back track 10 seconds (holding shift moves by one minute)
+	* `M-F4`							pulsemixer (general audio/volume sink/source control)
+
+--------------------------------------------------------------------------------------------------------------
+= windows/tags/workspaces = 
+--------------------------------------------------------------------------------------------------------------
+
+	* `M-space`			Make selected window the master (or switch master with 2nd)
+	* `Mod-shift-space` Make a window float Move and resize with `M-LC/M-RC`
+	* `Mod-k/j`			Cycle up/down window stack
+	* `Mod-l/h`			Increase/decrease width of master window
+	* `Mod-s`							Toggle window "stickyness" (follows you from tag to tag)
+	* `M-v`										Focus master
+	* `Mod-(number)`
+			- Go to (number) tag
+	* `Mod-C-(number)`
+			- Add tag to current view
+	* `Mod-S-(number)`
+			- Send window to (number) tag
+	* `M-C-S-(number)`
+	* `M-tab/backslash`
+			- Go to previous tag 
+	* `M-g`
+			- Go to left tag 
+	* `M-;`
+			- Go to right tag 
+	* `M-S-g`
+			- Send window to left tag 
+	* `M-S-;`
+			- Send window to right tag 
+
+--------------------------------------------------------------------------------------------------------------
+= recording =
+--------------------------------------------------------------------------------------------------------------
+
+	* `M-PrintScreen`
+			- Opens dmenu menu to select kind of 
+				audio/video recording
+	* `M-Delete`
+			- Kill any recording started in the above way
+	* `M-Shift-c`
+			- Toggles a webcam in the bottom right for screencasting.
+	* `M-ScrollLock`
+			- Toggle screenkey (if installed) to show keypresses
