@@ -5,8 +5,8 @@ static const unsigned int borderpx  = 0; /* border pixel of windows */
 static const unsigned int snap      = 32; /* snap pixel */
 static const unsigned int gappih    = 10; /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10; /* vert inner gap between windows */
-static const unsigned int gappoh    = 20; /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 20; /* vert outer gap between windows and screen edge */
+static const unsigned int gappoh    = 60; /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 60; /* vert outer gap between windows and screen edge */
 static const int swallowfloating    = 0; /* 1 means swallow floating windows by default */
 static const int smartgaps          = 0; /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1; /* 0 means no bar */
@@ -37,13 +37,19 @@ typedef struct {
 	const void *cmd;
 } Sp;
 const char *spcmd1[] = {"st", "-n", "spterm", "-f", "Hack:size=14", "-g", "120x36", NULL };
-const char *spcmd2[] = {"st", "-n", "spsyshelp", "-f", "Hack:size=14", "-g", "120x36", "-e", "help", "sys", NULL };
-const char *spcmd3[] = {"st", "-n", "spcalc", "-f", "Hack:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+const char *spcmd2[] = {"st", "-n", "spsyshelp",	"-f", "Hack:size=14", "-g", "120x36", "-e", "help", "sys", NULL };
+const char *spcmd3[] = {"st", "-n", "spvifmhelp", "-f", "Hack:size=14", "-g", "120x36", "-e", "help", "vifm", NULL };
+const char *spcmd4[] = {"st", "-n", "spnvimhelp", "-f", "Hack:size=14", "-g", "120x36", "-e", "help", "nvim", NULL };
+const char *spcmd5[] = {"st", "-n", "spcalc", "-f", "Hack:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+const char *spcmd6[] = {"st", "-n", "spdiary", "-f", "Hack:size=14", "-g", "120x36", "-e", "diary", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",      spcmd1},
-	{"spsyshelp",    spcmd2},
-	{"spranger",    spcmd3},
+	{"spsyshelp",   spcmd2},
+	{"spvifmhelp",  spcmd3},
+	{"spnvimhelp",  spcmd4},
+	{"spdiary",  spcmd6},
+	/* {"spranger",    spcmd3}, */
 };
 
 /* tagging */
@@ -55,8 +61,11 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       	    1 << 8,       0,           0,         0,        -1 },
 	{ "St",       NULL,       NULL,       	    0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
-	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
-	{ NULL,      "spsyshelp",  NULL,       	    SPTAG(1),     1,           1,         0,        -1 },
+	{ NULL,      "spterm",			NULL,      	    SPTAG(0),     1,           1,         0,        -1 },
+	{ NULL,      "spsyshelp",		NULL,      	    SPTAG(1),     1,           1,         0,        -1 },
+	{ NULL,      "spvifmhelp",  NULL,       	  SPTAG(2),     1,           1,         0,        -1 },
+	{ NULL,      "spnvimhelp",  NULL,       	  SPTAG(3),     1,           1,         0,        -1 },
+	{ NULL,      "spdiary",			NULL,						SPTAG(4),     1,           1,         0,        -1 },
 	/* { NULL,      "spcalc",    NULL,       	    SPTAG(1),     1,           1,         0,        -1 }, */
 };
 
@@ -141,8 +150,8 @@ static Key keys[] = {
 
 	/* Toggle dropdown terminal */
 	{ MODKEY,							XK_apostrophe,	togglescratch,	{.ui = 0} },
-	/* Toggle dropdown calc */
-	/* { MODKEY|ShiftMask,		XK_apostrophe,	togglescratch,	{.ui = 1} }, */
+	/* Toggle dropdown diary */
+	{ MODKEY|AltMask,			XK_apostrophe,	togglescratch,	{.ui = 4} },
 	/* Previous track */
 	{ MODKEY,							XK_comma,	spawn, SHCMD("mpc prev") },
 	/* Restart track */
@@ -188,11 +197,23 @@ static Key keys[] = {
 	{ MODKEY,							XK_space,		zoom,						{0} },
 	/* Make window float */
 	{ MODKEY|ShiftMask,		XK_space,		togglefloating,	{0} },
+	/* Launch music menu, search for single track */
+	{ MODKEY,													XK_slash, spawn, SHCMD("rofi_mpd --track") },
+	/* Launch music menu, search for album then title */
+	{ MODKEY|ShiftMask,								XK_slash, spawn, SHCMD("rofi_mpd --longplayer") },
+	/* Launch music menu, jump to song in playlist */
+	{ MODKEY|ControlMask,							XK_slash, spawn, SHCMD("rofi_mpd --jump") },
+	/* Launch music menu, search for playlist */
+	{ MODKEY|AltMask,									XK_slash, spawn, SHCMD("rofi_mpd --playlist") },
+	/* Launch music menu, search for artist, then album, then title */
+	{ MODKEY|ControlMask|ShiftMask,		XK_slash, spawn, SHCMD("rofi_mpd --artist") },
 	/* Launch help menus and task lists */
 	{ MODKEY|AltMask,							XK_0, togglescratch,	{.ui = 1} },
+	{ MODKEY|AltMask,							XK_1, togglescratch,	{.ui = 2} },
+	{ MODKEY|AltMask,							XK_2, togglescratch,	{.ui = 3} },
 	{ MODKEY|AltMask|ShiftMask,		XK_0, spawn, SHCMD("st -e nvim $RICE_TASK_FILE") },
-	{ MODKEY|AltMask,							XK_1, spawn, SHCMD("st -e nvim $NVIM_HELP_FILE") },
-	{ MODKEY|AltMask,							XK_2, spawn, SHCMD("st -e nvim $ZSH_HELP_FILE") },
+	/* { MODKEY|AltMask,							XK_1, spawn, SHCMD("st -e nvim $NVIM_HELP_FILE") }, */
+	/* { MODKEY|AltMask,							XK_2, spawn, SHCMD("st -e nvim $ZSH_HELP_FILE") }, */
 	{ MODKEY|AltMask,							XK_3, spawn, SHCMD("st -e nvim $VIFM_HELP_FILE") },
 	{ MODKEY|AltMask,							XK_4, spawn, SHCMD("st -e nvim $BRAVE_HELP_FILE") },
 	{ MODKEY|AltMask,							XK_5, spawn, SHCMD("st -e nvim $ZATHURA_HELP_FILE") },
@@ -206,14 +227,20 @@ static Key keys[] = {
 	{ MODKEY|AltMask|ShiftMask,		XK_a,	spawn, SHCMD("st -e nvim ~/doc/anki/blank.html") },
 	/* Toggle statusbar */
 	{ MODKEY,							XK_b,		togglebar,	{0} },
+	/* Toggle window compositor */
+	{ MODKEY|AltMask,			XK_c,	spawn, SHCMD("comptontoggle") },
 	/* Launch app launcher */
 	{ MODKEY,							XK_d,	spawn, SHCMD("rofi -show run") },
+	/* Toggle notifications */
+	{ MODKEY|AltMask,			XK_d,	spawn, SHCMD("dunsttoggle") },
 	/* Launch neomutt */
-	{ MODKEY,							XK_e,		spawn,	SHCMD("st -e neomutt ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") },
+	{ MODKEY,							XK_e, spawn, SHCMD("st -e neomutt; pkill -RTMIN+2 dwmblocks; rmdir ~/.abook") },
+	/* Sync mailbox */
+	{ MODKEY|ControlMask,	XK_e, spawn, SHCMD("mailsync") },
+	/* Launch emoji picker */
+	{ MODKEY|AltMask,			XK_e, spawn, SHCMD("rofi_emoji") },
 	/* Launch abook */
 	/* { MODKEY|ShiftMask,		XK_e,		spawn, 	SHCMD("st -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") }, */
-	/* Launch emoji picker */
-	{ MODKEY|ShiftMask,		XK_e,		spawn,	SHCMD("rofi_emoji") },
 	/* Fullscreen mode */
 	{ MODKEY,							XK_f,		togglefullscr,	{0} },
 	/* Floating mode */
@@ -242,9 +269,9 @@ static Key keys[] = {
 	/* Open vimwiki */
 	{ MODKEY,								XK_n,		spawn,	SHCMD("st -e nvim -c VimwikiIndex") },
 	/* Launch newsboat */
-	{ MODKEY|ShiftMask,			XK_n,		spawn,	SHCMD("st -e newsboat; pkill -RTMIN+6 dwmblocks") },
+	{ MODKEY|AltMask,				XK_n,		spawn,	SHCMD("st -e newsboat") },
 	/* Restart network manager */
-	{ MODKEY|ControlMask,		XK_n,		spawn,	SHCMD("sudo systemctl restart NetworkManager") },
+	{ MODKEY|ControlMask,		XK_n,		spawn,	SHCMD("renetwork") },
 	/* Increase/decrease the number of master windows */
 	{ MODKEY,								XK_o,		incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,			XK_o,		incnmaster,     {.i = -1 } },
@@ -313,17 +340,12 @@ static Key keys[] = {
 	{ MODKEY,			XK_Insert,	spawn,		SHCMD("notify-send \"📋 Clipboard contents:\" \"$(xclip -o -selection clipboard)\"") },
 	/* Select screen/display to use */
 	{ MODKEY,			XK_F3,		spawn,		SHCMD("displayselect") },
-	{ MODKEY,			XK_F8,		spawn,		SHCMD("mailsync") },
 	{ MODKEY,			XK_F11,		spawn,		SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
 	{ MODKEY,			XK_F12,		xrdb,		{.v = NULL } },
 
-	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_Calculator,		spawn,		SHCMD("st -e bc -l") },
 	{ 0, XF86XK_Sleep,		spawn,		SHCMD("sudo -A zzz") },
 	{ 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") },
-	{ 0, XF86XK_Mail,		spawn,		SHCMD("st -e neomutt ; pkill -RTMIN+12 dwmblocks") },
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
 	{ 0, XF86XK_Launch1,		spawn,		SHCMD("xset dpms force off") },
 	{ 0, XF86XK_TouchpadToggle,	spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
