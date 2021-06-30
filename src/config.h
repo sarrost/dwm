@@ -1,31 +1,32 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Appearance */
-static const unsigned int borderpx  = 0; /* border pixel of windows */
+static const unsigned int borderpx  = 1; /* border pixel of windows */
 static const unsigned int snap      = 32; /* snap pixel */
-static const unsigned int gappih    = 10; /* horiz inner gap between windows */
-static const unsigned int gappiv    = 10; /* vert inner gap between windows */
-static const unsigned int gappoh    = 60; /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 60; /* vert outer gap between windows and screen edge */
+static const unsigned int gappih    = 20; /* horiz inner gap between windows */
+static const unsigned int gappiv    = 20; /* vert inner gap between windows */
+static const unsigned int gappoh    = 20; /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 20; /* vert outer gap between windows and screen edge */
 static const int swallowfloating    = 0; /* 1 means swallow floating windows by default */
 static const int smartgaps          = 0; /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1; /* 0 means no bar */
 static const int topbar             = 1; /* 0 means bottom bar */
 static const char *fonts[]          = {
-	"Hack:size=12",
-	"Noto Sans CJK JP:size=12",
-	"FontAwesome:pixelsize=12:antialias=true:autohint=true",
-	"JoyPixels:pixelsize=12:antialias=true:autohint=true"
+	"SauceCodePro Nerd Font Mono:size=12",
+	"Noto Sans CJK JP:size=12"
 };
-static char dmenufont[]             = "Hack:size=10";
-static char normbgcolor[]           = "#00e897";
-static char normbordercolor[]       = "#00e897";
+
+	/* "FontAwesome:pixelsize=12:antialias=true:autohint=true",*/
+	/* "JoyPixels:pixelsize=12:antialias=true:autohint=true"*/
+static char dmenufont[]             = "SauceCodePro Nerd Font Mono:size=10";
+static char normbgcolor[]           = "#000000";
+static char normbordercolor[]       = "#000000";
 static char normfgcolor[]           = "#00e897";
-static char selfgcolor[]            = "#00e897";
-static unsigned int baralpha        = 0xb3;
-/* static unsigned int borderalpha     = OPAQUE; */
+static char selfgcolor[]            = "#000000";
 static char selbordercolor[]        = "#00e897";
 static char selbgcolor[]            = "#00e897";
+static unsigned int baralpha        = 0xb3;
+/* static unsigned int borderalpha     = 0x00; */
 static char *colors[][3] = {
 	/*               fg           bg           border   */
 	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -36,20 +37,13 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {"st", "-n", "spterm", "-f", "Hack:size=14", "-g", "120x36", NULL };
-const char *spcmd2[] = {"st", "-n", "spsyshelp",	"-f", "Hack:size=14", "-g", "120x36", "-e", "help", "sys", NULL };
-const char *spcmd3[] = {"st", "-n", "spvifmhelp", "-f", "Hack:size=14", "-g", "120x36", "-e", "help", "vifm", NULL };
-const char *spcmd4[] = {"st", "-n", "spnvimhelp", "-f", "Hack:size=14", "-g", "120x36", "-e", "help", "nvim", NULL };
-const char *spcmd5[] = {"st", "-n", "spcalc", "-f", "Hack:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
-const char *spcmd6[] = {"st", "-n", "spdiary", "-f", "Hack:size=14", "-g", "120x36", "-e", "diary", NULL };
+const char *spcmd0[] = {"st", "-n", "spterm", "-f", "SauceCodePro Nerd Font Mono:size=14", "-g", "120x36", NULL };
+const char *spcmd1[] = {"st", "-n", "spquicknote", "-g", "68x24", "-e", "quicknote", NULL };
+
 static Sp scratchpads[] = {
 	/* name          cmd  */
-	{"spterm",      spcmd1},
-	{"spsyshelp",   spcmd2},
-	{"spvifmhelp",  spcmd3},
-	{"spnvimhelp",  spcmd4},
-	{"spdiary",  spcmd6},
-	/* {"spranger",    spcmd3}, */
+	{"spterm",      spcmd0},
+	{"spquicknote", spcmd1},
 };
 
 /* tagging */
@@ -58,20 +52,16 @@ static const char *tags[] = { "\u4E00", "\u4E8C", "\u4E09", "\u56DB", "\u4E94", 
 
 static const Rule rules[] = {
 	/* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
-	{ "Gimp",     NULL,       NULL,       	    1 << 8,       0,           0,         0,        -1 },
+	{ "Gimp",     NULL,       NULL,       	    1 << 7,       0,           0,         0,        -1 },
 	{ "St",       NULL,       NULL,       	    0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
 	{ NULL,      "spterm",			NULL,      	    SPTAG(0),     1,           1,         0,        -1 },
-	{ NULL,      "spsyshelp",		NULL,      	    SPTAG(1),     1,           1,         0,        -1 },
-	{ NULL,      "spvifmhelp",  NULL,       	  SPTAG(2),     1,           1,         0,        -1 },
-	{ NULL,      "spnvimhelp",  NULL,       	  SPTAG(3),     1,           1,         0,        -1 },
-	{ NULL,      "spdiary",			NULL,						SPTAG(4),     1,           1,         0,        -1 },
-	/* { NULL,      "spcalc",    NULL,       	    SPTAG(1),     1,           1,         0,        -1 }, */
+	{ NULL,      "spquicknote",	NULL,      	    SPTAG(1),     1,           1,         0,        -1 },
 };
 
 /* layout(s) */
 /* factor of master area size [0.05..0.95] */
-static const float mfact     = 0.55;
+static const float mfact     = 0.50;
 /* number of clients in master area */
 static const int nmaster     = 1;
 /* 1 means respect size hints in tiled resizals */
@@ -147,11 +137,11 @@ static Key keys[] = {
 
 	{ MODKEY,							XK_0,		view,		{.ui = ~0 } },
 	{ MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } },
-
 	/* Toggle dropdown terminal */
-	{ MODKEY,							XK_apostrophe,	togglescratch,	{.ui = 0} },
+	{ MODKEY,											XK_apostrophe,	togglescratch,	{.ui = 0} },
 	/* Toggle dropdown diary */
-	{ MODKEY|AltMask,			XK_apostrophe,	togglescratch,	{.ui = 4} },
+	{ MODKEY|AltMask,							XK_apostrophe,	togglescratch,	{.ui = 4} },
+	{ MODKEY|AltMask|ShiftMask,		XK_apostrophe,	spawn, SHCMD("st -e journal open") },
 	/* Previous track */
 	{ MODKEY,							XK_comma,	spawn, SHCMD("mpc prev") },
 	/* Restart track */
@@ -175,6 +165,8 @@ static Key keys[] = {
 	/* Increase brightness level */
 	{ MODKEY|ControlMask,							XK_equal,	spawn, SHCMD("backlightwrap inc") },
 	{ MODKEY|ControlMask|ShiftMask,		XK_equal,	spawn, SHCMD("backlightwrap max") },
+	/* Launch taskwarrior tui */
+	{ MODKEY,													XK_grave,	spawn, SHCMD("st -e taskwarrior-tui") },
 	/* Switch between previous tag */
 	{ MODKEY,							XK_Tab,		view,		{0} },
 	{ MODKEY,							XK_bracketleft,		spawn, SHCMD("mpc seek -10") },
@@ -187,8 +179,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_semicolon,		shifttag,			{ .i = 1 } },
 	/* Spawn terminal */
 	{ MODKEY,							XK_Return,	spawn,	{.v = termcmd } },
-	/* Spawn Vifm */
-	{ MODKEY|ShiftMask,		XK_Return,	spawn,	SHCMD("st -e vifmrun") },
 	/* Next track */
 	{ MODKEY,							XK_period,	spawn,		SHCMD("mpc next") },
 	/* Toggle playlist looping */
@@ -198,53 +188,53 @@ static Key keys[] = {
 	/* Make window float */
 	{ MODKEY|ShiftMask,		XK_space,		togglefloating,	{0} },
 	/* Launch music menu, search for single track */
-	{ MODKEY,													XK_slash, spawn, SHCMD("rofi_mpd --track") },
+	{ MODKEY,													XK_slash, spawn, SHCMD("dmenu_mpd --track") },
 	/* Launch music menu, search for album then title */
-	{ MODKEY|ShiftMask,								XK_slash, spawn, SHCMD("rofi_mpd --longplayer") },
+	{ MODKEY|ShiftMask,								XK_slash, spawn, SHCMD("dmenu_mpd --longplayer") },
 	/* Launch music menu, jump to song in playlist */
-	{ MODKEY|ControlMask,							XK_slash, spawn, SHCMD("rofi_mpd --jump") },
+	{ MODKEY|ControlMask,							XK_slash, spawn, SHCMD("dmenu_mpd --jump") },
 	/* Launch music menu, search for playlist */
-	{ MODKEY|AltMask,									XK_slash, spawn, SHCMD("rofi_mpd --playlist") },
+	{ MODKEY|AltMask,									XK_slash, spawn, SHCMD("dmenu_mpd --playlist") },
 	/* Launch music menu, search for artist, then album, then title */
-	{ MODKEY|ControlMask|ShiftMask,		XK_slash, spawn, SHCMD("rofi_mpd --artist") },
-	/* Launch help menus and task lists */
-	{ MODKEY|AltMask,							XK_0, togglescratch,	{.ui = 1} },
-	{ MODKEY|AltMask,							XK_1, togglescratch,	{.ui = 2} },
-	{ MODKEY|AltMask,							XK_2, togglescratch,	{.ui = 3} },
-	{ MODKEY|AltMask|ShiftMask,		XK_0, spawn, SHCMD("st -e nvim $RICE_TASK_FILE") },
-	/* { MODKEY|AltMask,							XK_1, spawn, SHCMD("st -e nvim $NVIM_HELP_FILE") }, */
-	/* { MODKEY|AltMask,							XK_2, spawn, SHCMD("st -e nvim $ZSH_HELP_FILE") }, */
-	{ MODKEY|AltMask,							XK_3, spawn, SHCMD("st -e nvim $VIFM_HELP_FILE") },
-	{ MODKEY|AltMask,							XK_4, spawn, SHCMD("st -e nvim $BRAVE_HELP_FILE") },
-	{ MODKEY|AltMask,							XK_5, spawn, SHCMD("st -e nvim $ZATHURA_HELP_FILE") },
+	{ MODKEY|ControlMask|ShiftMask,		XK_slash, spawn, SHCMD("dmenu_mpd --artist") },
 	/* Toggle gaps */
 	{ MODKEY,											XK_a,	togglegaps,		{0} },
 	/* Gaps to default value */
 	{ MODKEY|ShiftMask,						XK_a,	defaultgaps,	{0} },
+	/* Pick color on screen */
+	{ MODKEY|ControlMask,					XK_a, spawn, SHCMD("pickcolor") },
 	/* Launch anki */
-	{ MODKEY|AltMask,							XK_a,	spawn,				SHCMD("anki") },
+	{ MODKEY|AltMask,							XK_a, spawn, SHCMD("anki") },
 	/* Prep anki fields */
-	{ MODKEY|AltMask|ShiftMask,		XK_a,	spawn, SHCMD("st -e nvim ~/doc/anki/blank.html") },
+	{ MODKEY|AltMask|ShiftMask,		XK_a, spawn, SHCMD("st -e nvim ~/dc/anki/blank.html") },
 	/* Toggle statusbar */
 	{ MODKEY,							XK_b,		togglebar,	{0} },
+	/* Restart statusbar */
+	{ MODKEY|ControlMask,	XK_b,		spawn, SHCMD("killall -q dwmblocks; setsid dwmblocks &") },
+	/* Launch bluetooth menu */
+	{ MODKEY|AltMask,			XK_b,		spawn, SHCMD("dmenu_bluetooth") },
+	/* Launch clipboard manager */
+	{ MODKEY,							XK_c,	spawn, SHCMD("dmenu_clip") },
 	/* Toggle window compositor */
-	{ MODKEY|AltMask,			XK_c,	spawn, SHCMD("comptontoggle") },
+	{ MODKEY|AltMask,			XK_c,	spawn, SHCMD("compositortoggle") },
 	/* Launch app launcher */
-	{ MODKEY,							XK_d,	spawn, SHCMD("rofi -show run") },
-	/* Toggle notifications */
-	{ MODKEY|AltMask,			XK_d,	spawn, SHCMD("dunsttoggle") },
+	{ MODKEY,							XK_d,	spawn, SHCMD("dmenu_run") },
+	/* Launch discord */
+	{ MODKEY|AltMask,			XK_d,	spawn, SHCMD("discord") },
 	/* Launch neomutt */
-	{ MODKEY,							XK_e, spawn, SHCMD("st -e neomutt; pkill -RTMIN+2 dwmblocks; rmdir ~/.abook") },
+	{ MODKEY,							XK_e, spawn, SHCMD("st -e neomutt; pkill -RTMIN+2 dwmblocks") },
 	/* Sync mailbox */
-	{ MODKEY|ControlMask,	XK_e, spawn, SHCMD("mailsync") },
+	{ MODKEY|ControlMask,	XK_e, spawn, SHCMD("syncmail") },
 	/* Launch emoji picker */
-	{ MODKEY|AltMask,			XK_e, spawn, SHCMD("rofi_emoji") },
+	{ MODKEY|AltMask,			XK_e, spawn, SHCMD("dmenu_emoji") },
 	/* Launch abook */
 	/* { MODKEY|ShiftMask,		XK_e,		spawn, 	SHCMD("st -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") }, */
 	/* Fullscreen mode */
 	{ MODKEY,							XK_f,		togglefullscr,	{0} },
 	/* Floating mode */
 	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[8]} },
+	/* Spawn file browser */
+	{ MODKEY|ControlMask,	XK_f,		spawn,	SHCMD("st -e \"$FILE_BROWSER\"") },
 	/* Go to left tag */
 	{ MODKEY,							XK_g,		shiftview,	{ .i = -1 } },
 	/* Send window to left tag */
@@ -263,11 +253,13 @@ static Key keys[] = {
 	/* Mute audio toggle */
 	{ MODKEY|ShiftMask,					XK_m,			spawn,		SHCMD("volumewrap toggle") },
 	/* Launch usb mounter */
-	{ MODKEY|AltMask,						XK_m,			spawn,		SHCMD("rofi_mount") },
+	{ MODKEY|AltMask,						XK_m,			spawn,		SHCMD("dmenu_mount") },
 	/* Launch usb unmounter */
-	{ MODKEY|AltMask|ShiftMask,	XK_m,			spawn,		SHCMD("rofi_umount") },
+	{ MODKEY|AltMask|ShiftMask,	XK_m,			spawn,		SHCMD("dmenu_umount") },
+	/* Toggle dropdown quicknote */
+	{ MODKEY,								XK_n,		togglescratch,	{.ui = 1} },
 	/* Open vimwiki */
-	{ MODKEY,								XK_n,		spawn,	SHCMD("st -e nvim -c VimwikiIndex") },
+	{ MODKEY|ShiftMask,			XK_n,		spawn,	SHCMD("st -e nvim -c VimwikiIndex") },
 	/* Launch newsboat */
 	{ MODKEY|AltMask,				XK_n,		spawn,	SHCMD("st -e newsboat") },
 	/* Restart network manager */
@@ -288,17 +280,17 @@ static Key keys[] = {
 	/* Close/kill window */
 	{ MODKEY,																	XK_q,					killclient,	{0} },
 	/* Reload dwm */
-	{ MODKEY|ControlMask|ShiftMask,						XK_q,	spawn,	SHCMD("start_dwm") },
+	{ MODKEY|ControlMask|ShiftMask,						XK_q,	spawn,	SHCMD("pkill -1 dwm; echo") },
 	/* Logout */
 	{ MODKEY|AltMask|ShiftMask,								XK_q,	spawn,	SHCMD("pkill dwm") },
 	/* Shutdown */
 	{ MODKEY|AltMask|ControlMask,							XK_q,	spawn,	SHCMD("shutdown now") },
 	/* Reboot */
 	{ MODKEY|AltMask|ControlMask|ShiftMask,		XK_q,	spawn,	SHCMD("reboot") },
-	/* Launch resource manager (bashtop) */
-	{ MODKEY,							XK_r,		spawn,		SHCMD("st -e bashtop") },
-	/* Launch resource manager (htop) */
-	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e htop") },
+	/* Launch resource manager (htop)) */
+	{ MODKEY,							XK_r,		spawn,		SHCMD("st -f 'SauceCodePro Nerd Font Mono:size=14' -e htop") },
+	/* Remap keys */
+	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("remapkeys") },
 	/* Window toggle sticky */
 	{ MODKEY,							XK_s,		togglesticky,	{0} },
 	/* Toggle screenkey */
@@ -308,7 +300,9 @@ static Key keys[] = {
 	/* Bottom stack mode */
 	{ MODKEY|ShiftMask,		XK_t,		setlayout,	{.v = &layouts[1]} },
 	/* Launch torrent client */
-	{ MODKEY|AltMask,			XK_t,		spawn,			SHCMD("st -e transmission-remote-cli") },
+	{ MODKEY|AltMask,			XK_t,		spawn,			SHCMD("teams") },
+	/* Launch torrent client */
+	{ MODKEY|ControlMask,	XK_t,		spawn,			SHCMD("st -e tremc") },
 	/* Deck mode */
 	{ MODKEY,							XK_u,		setlayout,	{.v = &layouts[4]} },
 	/* Monocle mode */
@@ -316,6 +310,7 @@ static Key keys[] = {
 	/* V is automatically bound above in STACKKEYS */
 	/* Launch browser */
 	{ MODKEY,							XK_w,	spawn, SHCMD("$BROWSER") },
+	{ MODKEY|AltMask,			XK_w,	spawn, SHCMD("firefox-developer-edition") },
 	/* Launch nmtui */
 	{ MODKEY|ShiftMask,		XK_w,	spawn, SHCMD("st -e sudo nmtui") },
 	/* Launch pulsemixer */
@@ -327,6 +322,8 @@ static Key keys[] = {
 	/* Increase/decrease gaps */
 	{ MODKEY,							XK_z,		incrgaps,	{.i = +3 } },
 	{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -3 } },
+	/* Launch password manager */
+	{ MODKEY|AltMask,			XK_z,		spawn, SHCMD("dmenu_pass") },
 
 	{ MODKEY,			XK_Left,	focusmon,	{.i = -1 } },
 	{ MODKEY|ShiftMask,		XK_Left,	tagmon,		{.i = -1 } },
@@ -337,7 +334,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_Page_Up,	shifttag,	{ .i = -1 } },
 	{ MODKEY,			XK_Page_Down,	shiftview,	{ .i = +1 } },
 	{ MODKEY|ShiftMask,		XK_Page_Down,	shifttag,	{ .i = +1 } },
-	{ MODKEY,			XK_Insert,	spawn,		SHCMD("notify-send \"📋 Clipboard contents:\" \"$(xclip -o -selection clipboard)\"") },
+	{ MODKEY,			XK_Insert,	spawn,		SHCMD("notify-send \"Clipboard contents:\" \"$(xclip -o -selection clipboard)\"") },
 	/* Select screen/display to use */
 	{ MODKEY,			XK_F3,		spawn,		SHCMD("displayselect") },
 	{ MODKEY,			XK_F11,		spawn,		SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
